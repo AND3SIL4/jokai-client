@@ -1,0 +1,13 @@
+# Binarios
+bin/
+*.exe
+*.test
+*.out
+
+# Configuración local del usuario (la plantilla es config.example.toml)
+config.toml
+
+# Base de datos y artefactos de ejecución local
+*.db
+*.db-journal
+*.db-wal

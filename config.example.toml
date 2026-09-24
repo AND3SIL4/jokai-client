@@ -1,0 +1,54 @@
+# Configuración de jokai-client
+#
+# Copie este archivo como 'config.toml' junto al ejecutable (o páselo con --config)
+# y ajuste las rutas a su entorno. Las cadenas entre comillas simples son literales
+# TOML: las rutas UNC se escriben con backslashes simples ('\\servidor\carpeta').
+
+[fileserver]
+# Ruta absoluta de la raíz de jokai en el fileserver (UNC o letra de unidad).
+raiz = '\\FILESERVER\jokai'
+
+# Ruta de la base de datos SQLite, relativa a 'raiz' (la BD es del sistema; el
+# cliente solo la lee — las escrituras las consolida el proceso escritor).
+db = 'jokai.db'
+
+[descubrimiento]
+# Nombre del archivo de entrada que identifica un bot (por convención main.py).
+archivo_entrada = 'main.py'
+
+# Niveles máximos de búsqueda del archivo de entrada dentro de la carpeta de
+# cada bot. 0 = sin límite.
+profundidad_maxima = 5
+
+[ambientes.dev]
+# Carpeta con los bots de desarrollo: cada subcarpeta directa es un bot.
+ruta_bots = '\\FILESERVER\bots-dev'
+
+[ambientes.prod]
+# Carpeta con los bots de producción.
+ruta_bots = '\\FILESERVER\bots-prod'
+
+[ui]
+# Intervalo de refresco de la interfaz (duración Go: '2s', '500ms', '1m'...).
+intervalo_refresco = '2s'
+
+# Protocolo de orquestación vía fileserver (spec 002).
+# El TUI lee el snapshot publicado por el consolidador y publica comandos en inbox/<máquina>/.
+[protocolo]
+# Nombre (sin rutas) del snapshot que publica el consolidador, relativo a 'raiz'.
+snapshot = 'estado.json'
+
+# Duración máxima de una ejecución antes de considerarla huérfana (FALLIDA por el consolidador).
+timeout_ejecucion = '4h'
+
+# Frecuencia esperada del latido del agente en cada máquina.
+latido_agente = '60s'
+
+# Sin latido del agente en este lapso → máquina/agente caído.
+umbral_agente_inactivo = '5min'
+
+# Retención de archivos procesados (drenados a procesados/YYYY/MM/DD/); 720h = 30 días.
+retencion_archivos = '720h'
+
+# Retención del historial de ejecuciones en la BD.
+retencion_historial = '2160h'
